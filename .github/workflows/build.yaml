@@ -100,74 +100,74 @@ jobs:
       - name: Build application
         run: bun run build
 
-  # deploy-dev:
-  #   name: Deploy to Development
-  #   runs-on: ubuntu-latest
-  #   needs: build
-  #   if: github.ref == 'refs/heads/dev'
-  #   environment: development
+  deploy-dev:
+    name: Deploy to Development
+    runs-on: ubuntu-latest
+    needs: build
+    if: github.ref == 'refs/heads/dev'
+    environment: development
 
-  #   steps:
-  #     - name: Deploy to Dev Server
-  #       uses: appleboy/ssh-action@master
-  #       with:
-  #         host: ${{ secrets.DEV_HOST }}
-  #         username: ${{ secrets.DEV_USERNAME }}
-  #         key: ${{ secrets.DEV_SSH_KEY }}
-  #         port: ${{ secrets.DEV_PORT }}
-  #         script: |
-  #           cd ${{ secrets.DEV_APP_DIRECTORY }}
-  #           git pull origin dev
-  #           bun install
-  #           bunx --bun prisma generate
-  #           bunx --bun prisma migrate deploy
-  #           bun run build
-  #           pm2 reload ${{ secrets.DEV_PM2_APP_NAME }}
+    steps:
+      - name: Deploy to Dev Server
+        uses: appleboy/ssh-action@master
+        with:
+          host: ${{ secrets.DEV_HOST }}
+          username: ${{ secrets.DEV_USERNAME }}
+          key: ${{ secrets.DEV_SSH_KEY }}
+          port: ${{ secrets.DEV_PORT }}
+          script: |
+            cd ${{ secrets.DEV_APP_DIRECTORY }}
+            git pull origin dev
+            bun install
+            bunx --bun prisma generate
+            bunx --bun prisma migrate deploy
+            bun run build
+            pm2 reload ${{ secrets.DEV_PM2_APP_NAME }}
 
-  # deploy-staging:
-  #   name: Deploy to Staging
-  #   runs-on: ubuntu-latest
-  #   needs: build
-  #   if: github.ref == 'refs/heads/staging'
-  #   environment: staging
+  deploy-staging:
+    name: Deploy to Staging
+    runs-on: ubuntu-latest
+    needs: build
+    if: github.ref == 'refs/heads/staging'
+    environment: staging
 
-  #   steps:
-  #     - name: Deploy to Staging Server
-  #       uses: appleboy/ssh-action@master
-  #       with:
-  #         host: ${{ secrets.STAGING_HOST }}
-  #         username: ${{ secrets.STAGING_USERNAME }}
-  #         key: ${{ secrets.STAGING_SSH_KEY }}
-  #         port: ${{ secrets.STAGING_PORT }}
-  #         script: |
-  #           cd ${{ secrets.STAGING_APP_DIRECTORY }}
-  #           git pull origin staging
-  #           bun install
-  #           bunx --bun prisma generate
-  #           bunx --bun prisma migrate deploy
-  #           bun run build
-  #           pm2 reload ${{ secrets.STAGING_PM2_APP_NAME }}
+    steps:
+      - name: Deploy to Staging Server
+        uses: appleboy/ssh-action@master
+        with:
+          host: ${{ secrets.STAGING_HOST }}
+          username: ${{ secrets.STAGING_USERNAME }}
+          key: ${{ secrets.STAGING_SSH_KEY }}
+          port: ${{ secrets.STAGING_PORT }}
+          script: |
+            cd ${{ secrets.STAGING_APP_DIRECTORY }}
+            git pull origin staging
+            bun install
+            bunx --bun prisma generate
+            bunx --bun prisma migrate deploy
+            bun run build
+            pm2 reload ${{ secrets.STAGING_PM2_APP_NAME }}
 
-  # deploy-production:
-  #   name: Deploy to Production
-  #   runs-on: ubuntu-latest
-  #   needs: build
-  #   if: github.ref == 'refs/heads/main'
-  #   environment: production
+  deploy-production:
+    name: Deploy to Production
+    runs-on: ubuntu-latest
+    needs: build
+    if: github.ref == 'refs/heads/main'
+    environment: production
 
-  #   steps:
-  #     - name: Deploy to Production Server
-  #       uses: appleboy/ssh-action@master
-  #       with:
-  #         host: ${{ secrets.PRODUCTION_HOST }}
-  #         username: ${{ secrets.PRODUCTION_USERNAME }}
-  #         key: ${{ secrets.PRODUCTION_SSH_KEY }}
-  #         port: ${{ secrets.PRODUCTION_PORT }}
-  #         script: |
-  #           cd ${{ secrets.PRODUCTION_APP_DIRECTORY }}
-  #           git pull origin main
-  #           bun install
-  #           bunx --bun prisma generate
-  #           bunx --bun prisma migrate deploy
-  #           bun run build
-  #           pm2 reload ${{ secrets.PRODUCTION_PM2_APP_NAME }}
+    steps:
+      - name: Deploy to Production Server
+        uses: appleboy/ssh-action@master
+        with:
+          host: ${{ secrets.PRODUCTION_HOST }}
+          username: ${{ secrets.PRODUCTION_USERNAME }}
+          key: ${{ secrets.PRODUCTION_SSH_KEY }}
+          port: ${{ secrets.PRODUCTION_PORT }}
+          script: |
+            cd ${{ secrets.PRODUCTION_APP_DIRECTORY }}
+            git pull origin main
+            bun install
+            bunx --bun prisma generate
+            bunx --bun prisma migrate deploy
+            bun run build
+            pm2 reload ${{ secrets.PRODUCTION_PM2_APP_NAME }}

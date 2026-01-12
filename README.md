@@ -1,4 +1,4 @@
-# Clean Nest Prisma PG
+Clean Nest Prisma PG
 
 A production-ready NestJS starter kit using Prisma ORM with PostgreSQL database. This boilerplate provides a clean architecture foundation for building scalable server-side applications.
 
